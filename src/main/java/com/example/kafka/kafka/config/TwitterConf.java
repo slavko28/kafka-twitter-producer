@@ -34,19 +34,16 @@ public class TwitterConf {
     private static final String TERM_TWITTER = "#twitter";
     private static final List<String> TERMS = Lists.newArrayList(TERM_TWITTER);
 
-    static final BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2000);
     static final StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
 
 
     @Bean
-    public Client getClient() {
+    public ClientBuilder getClientBuilder() {
         endpoint.trackTerms(TERMS);
         final Authentication auth = new OAuth1(consumerKey, consumerSecret, accessToken, accessSecret);
         return new ClientBuilder()
                 .hosts(Constants.STREAM_HOST)
                 .endpoint(endpoint)
-                .authentication(auth)
-                .processor(new StringDelimitedProcessor(queue))
-                .build();
+                .authentication(auth);
     }
 }
