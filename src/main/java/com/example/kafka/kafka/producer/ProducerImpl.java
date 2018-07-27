@@ -23,7 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @Slf4j
 @Component
-public class Producer {
+public class ProducerImpl implements ProducerService {
 
     @Value("${twitter.api.consumer.key}")
     private String consumerKey;
@@ -49,13 +49,13 @@ public class Producer {
     private final ClientBuilder clientBuilder;
 
     @Autowired
-    public Producer(KafkaTemplate<String, String> kafkaTemplate, ClientBuilder clientBuilder) {
+    public ProducerImpl(KafkaTemplate<String, String> kafkaTemplate, ClientBuilder clientBuilder) {
         this.kafkaTemplate = kafkaTemplate;
         this.clientBuilder = clientBuilder;
     }
 
-    @PostConstruct
-    public void run(String message) {
+    @Override
+    public void run() {
         Client client = clientBuilder.processor(new StringDelimitedProcessor(queue)).build();
         client.connect();
 
