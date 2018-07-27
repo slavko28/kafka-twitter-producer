@@ -28,6 +28,7 @@ public class TwitterConf {
     private String accessSecret;
 
     private static final String TERM_TWITTER = "#twitter";
+
     private static final List<String> TERMS = Lists.newArrayList(TERM_TWITTER);
 
     static final StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();

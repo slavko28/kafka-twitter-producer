@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ConsumerImpl implements ConsumerService {
 
     @Override
-    @KafkaListener(topics = "api-twitter-topic")
+    @KafkaListener(topics = "${kafka.topic}")
     public void processMessage(String message) {
         log.info("Message - {}", message);
     }

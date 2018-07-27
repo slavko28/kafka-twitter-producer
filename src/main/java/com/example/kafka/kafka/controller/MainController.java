@@ -18,9 +18,8 @@ public class MainController {
     }
 
     @GetMapping(value = "/start")
-    public String start() {
+    public void start() {
         producerService.run();
-        return "Service started";
     }
 
 }

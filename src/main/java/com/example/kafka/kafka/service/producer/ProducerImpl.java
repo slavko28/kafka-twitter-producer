@@ -18,23 +18,11 @@ import java.util.concurrent.LinkedBlockingQueue;
 @Service
 public class ProducerImpl implements ProducerService {
 
-    @Value("${twitter.api.consumer.key}")
-    private String consumerKey;
+    @Value("${kafka.topic}")
+    private String topicName;
 
-    @Value("${twitter.api.consumer.secret}")
-    private String consumerSecret;
-
-    @Value("${twitter.api.access.token}")
-    private String accessToken;
-
-    @Value("${twitter.api.access.secret}")
-    private String accessSecret;
-
-    @Value("${twitter.api.default.capacity}")
-    private int twitterApiDefaultCapacity;
-
-    private static final String TOPIC_NAME = "api-twitter-topic";
     private static final int MESSAGE_LIMIT = 1000;
+
     static final BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2000);
 
     private final KafkaTemplate<String, String> kafkaTemplate;
@@ -55,11 +43,12 @@ public class ProducerImpl implements ProducerService {
         for (int msgRead = 0; msgRead < MESSAGE_LIMIT; msgRead++) {
             try {
                 final String payload = queue.take();
-                kafkaTemplate.send(new ProducerRecord<>(TOPIC_NAME, payload));
+                kafkaTemplate.send(new ProducerRecord<>(topicName, payload));
             } catch (final InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
         client.stop();
     }
 
