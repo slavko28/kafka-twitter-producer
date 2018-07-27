@@ -1,13 +1,14 @@
-package com.example.kafka.kafka.consumer;
+package com.example.kafka.kafka.service.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@Component
-public class Consumer {
+@Service
+public class ConsumerImpl implements ConsumerService {
 
+    @Override
     @KafkaListener(topics = "api-twitter-topic")
     public void processMessage(String message) {
         log.info("Message - {}", message);

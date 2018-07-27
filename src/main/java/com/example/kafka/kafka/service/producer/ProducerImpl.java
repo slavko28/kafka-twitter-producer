@@ -1,28 +1,21 @@
-package com.example.kafka.kafka.producer;
+package com.example.kafka.kafka.service.producer;
 
 
-import com.example.kafka.kafka.config.TwitterConf;
-import com.google.common.collect.Lists;
 import com.twitter.hbc.ClientBuilder;
 import com.twitter.hbc.core.Client;
 import com.twitter.hbc.core.processor.StringDelimitedProcessor;
-import com.twitter.hbc.httpclient.BasicClient;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-//import org.springframework.social.twitter.api.impl.TwitterTemplate;
-
 @Slf4j
-@Component
+@Service
 public class ProducerImpl implements ProducerService {
 
     @Value("${twitter.api.consumer.key}")

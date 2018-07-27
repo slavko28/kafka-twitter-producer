@@ -32,7 +32,6 @@ public class TwitterConf {
 
     static final StatusesFilterEndpoint endpoint = new StatusesFilterEndpoint();
 
-
     @Bean
     public ClientBuilder getClientBuilder() {
         endpoint.trackTerms(TERMS);
