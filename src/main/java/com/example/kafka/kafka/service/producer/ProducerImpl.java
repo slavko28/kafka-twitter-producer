@@ -21,6 +21,8 @@ public class ProducerImpl implements ProducerService {
     @Value("${kafka.topic}")
     private String topicName;
 
+    private Client client;
+
     private static final int MESSAGE_LIMIT = 1000;
 
     static final BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2000);
@@ -37,7 +39,7 @@ public class ProducerImpl implements ProducerService {
 
     @Override
     public void run() {
-        Client client = clientBuilder.processor(new StringDelimitedProcessor(queue)).build();
+        client = clientBuilder.processor(new StringDelimitedProcessor(queue)).build();
         client.connect();
 
         for (int msgRead = 0; msgRead < MESSAGE_LIMIT; msgRead++) {
